@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:graph_ql/view_model/controllers/graph_controller.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-void main() {
+import 'view/home/screen_home.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initHiveForFlutter();
+  Get.put(GraphController());
   runApp(const MyApp());
 }
 
@@ -10,23 +18,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'graphQl Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyWidget(),
-    );
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: CircleAvatar(),
+      home: MyHomePage(
+        title: 'GraphQL',
+      ),
     );
   }
 }
